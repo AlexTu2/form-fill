@@ -1,9 +1,8 @@
+import keyboard
 import pynput
-import time
 
 from pynput.keyboard import Key, Controller
-
-keyboard = Controller()
+kb = Controller()
 
 def read_file(file):
     f = open(file, "r")
@@ -11,10 +10,11 @@ def read_file(file):
 
     for line in f:
         if not line.strip():
-            print(line)
+            continue
+            #print(line)
         if line:
-            print(line.strip())
-            clean_input.append(line.strip())
+            #print(line.strip())
+            clean_input.append(line.strip().lower())
 
     f.close()
 
@@ -22,18 +22,21 @@ def read_file(file):
 
 def form_fill(input):
     for i in input:
-        keyboard.type('%s\t' % (i))
+        kb.type('%s\t' % (i))
 
-    keyboard.press(Key.enter)
-    keyboard.release(Key.enter)
+    keyboard.press_and_release('enter')
 
 def main():
     #Read input file
     clean_input = read_file("input.txt")
 
     #Fill form
-    time.sleep(1.5)
-    form_fill(clean_input)
+    #form_fill(clean_input)
+
+    #Add hotkey to call form_fill
+    keyboard.add_hotkey('f2', form_fill, args=(clean_input,))
+    keyboard.wait('esc')
+    print("done")
 
 if __name__ == "__main__":
     main()
