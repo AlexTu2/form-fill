@@ -48,7 +48,7 @@ python main.py
 
 ### Notes
 * The program by default reads the "input.txt" file
-* Default delay until form-fill starts automatic input is 1.5 seconds
+* Use F2 to begin filling, esc to quit
 
 
 
